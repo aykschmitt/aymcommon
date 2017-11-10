@@ -1,0 +1,517 @@
+from django import forms
+from django.forms import ModelForm
+from django.forms.formsets import formset_factory
+from django.contrib.admin import widgets
+from django.core.exceptions import ValidationError
+from AYMCommonMessage.messageapp.models import *
+
+def make_custom_datefield(f):
+    formfield = f.formfield()
+    if isinstance(f, models.DateField):
+        formfield.widget.format = '%m/%d/%Y'
+        formfield.widget.attrs.update({'class':'datePicker', 'readonly':'true'})
+    elif isinstance(f, models.TimeField):
+        formfield.widget.attrs.update({'class':'timepicker', 'readonly':'true'})
+    return formfield
+
+def make_custom_datetimefield(f):
+    formfield = f.formfield()
+    if isinstance(f, models.DateTimeField):
+        formfield.widget.attrs.update({'class':'datetimepicker'})
+    elif isinstance(f, models.DateField):
+        formfield.widget.format = '%m/%d/%Y'
+        formfield.widget.attrs.update({'class':'datePicker', 'readonly':'true'})
+    return formfield
+
+class NewUserForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = NewUser
+
+class EarlyClockOutForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = EarlyClockOut
+
+class EarlyClockOutFactoryForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = EarlyClockOutFactory
+
+class EarlyClockOutFoundryForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = EarlyClockOutFoundry
+
+class EarlyClockOutMaintForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = EarlyClockOutMaint
+
+class EarlyClockOutShipForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = EarlyClockOutShip
+
+class IssueMiscMaterialForm(ModelForm):
+    class Meta:
+        model = IssueMiscMaterial
+
+class TerminateEmployeeForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = TerminateEmployee
+
+class TerminateEmployeeMBUForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = TerminateEmployeeMBU
+
+class TerminateEmployeeFactoryForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = TerminateEmployeeFactory
+
+class TerminateEmployeeFoundryForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = TerminateEmployeeFoundry
+
+class TerminateEmployeeMaintForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = TerminateEmployeeMaint
+
+class TerminateEmployeeShipForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = TerminateEmployeeShip
+
+class WeekInjIllFactoryForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = WeekInjIllFactory
+
+class WeekInjIllFoundryForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = WeekInjIllFoundry
+
+class WeekInjIllMaintForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = WeekInjIllMaint
+
+class WeekInjIllShippingForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = WeekInjIllShipping
+
+class MaintRequestForm(ModelForm):
+    class Meta:
+        model = MaintRequest
+
+class CallInForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = CallIn
+
+class CallInFactoryForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = CallInFactory
+
+class CallInFoundryForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = CallInFoundry
+
+class CallInShipForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = CallInShip
+
+class CallInMaintForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = CallInMaint
+
+class CallInShipForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = CallInShip
+    
+class InstructSheetOrderForm(ModelForm):
+    class Meta:
+        model = InstructSheetOrder
+
+class InjuryReportForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = InjuryReport
+
+class ChangeOfStatusForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = ChangeOfStatus
+
+class ChangeOfStatusFactoryForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = ChangeOfStatusFactory
+
+class ChangeOfStatusFoundryForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = ChangeOfStatusFoundry
+
+class ChangeOfStatusMaintForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = ChangeOfStatusMaint
+
+class ChangeOfStatusShipForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = ChangeOfStatusShip
+
+class ToolChangeForm(ModelForm):
+    class Meta:
+        model = ToolChange
+
+class CastingProblemForm(ModelForm):
+    class Meta:
+        model = CastingProblem
+
+class CartonNoChangeForm(ModelForm):
+    class Meta:
+        model = CartonNoChange
+
+class CartonWgtChangeForm(ModelForm):
+    class Meta:
+        model = CartonWgtChange
+
+class CellSetupForm(ModelForm):
+    class Meta:
+        model = CellSetup
+
+class GatePassForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = GatePass
+
+class MachineDownLogForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = MachineDownLog
+
+class ChangeOrderRequestForm(ModelForm):
+    class Meta:
+        model = ChangeOrderRequest
+
+class AlbiaCallInForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = AlbiaCallIn
+
+class AlbiaInjuryReportForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = AlbiaInjuryReport
+
+class TennCallInForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = TennCallIn
+
+class TennInjuryReportForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = TennInjuryReport
+
+class AlbiaWeekInjIllFactoryForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = AlbiaWeekInjIllFactory
+
+class AlbiaEarlyClockOutForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = AlbiaEarlyClockOut
+
+class TennEarlyClockOutForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = TennEarlyClockOut
+
+class AlbiaIssueMiscMaterialForm(ModelForm):
+    class Meta:
+        model = AlbiaIssueMiscMaterial
+
+class TennIssueMiscMaterialForm(ModelForm):
+    class Meta:
+        model = TennIssueMiscMaterial
+
+class NevIssueMiscMaterialForm(ModelForm):
+    class Meta:
+        model = NevIssueMiscMaterial
+
+class FoundryToolRecForm(ModelForm):
+    class Meta:
+        model = FoundryToolRec
+
+class MachineFollowUpForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = MachineFollowUp
+
+class AlbiaMachineFollowUpForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = AlbiaMachineFollowUp
+
+class TennMachineFollowUpForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = TennMachineFollowUp
+
+class SetupExceptionChallengeForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = SetupExceptionChallenge
+
+class SetupExceptionResponseForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = SetupExceptionResponse
+
+class TennSetupExceptionForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = TennSetupException
+
+class TimeStudyForm(ModelForm):
+    class Meta:
+        model = TimeStudy
+
+class RequestToPostForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = RequestToPost
+
+class ToolRoomRequestForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = ToolRoomRequest
+
+class WeightChangeForm(ModelForm):
+    class Meta:
+        model = WeightChange
+
+class VacationRequestForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = VacationRequest
+
+class VacationRequestFactoryForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = VacationRequestFactory
+
+class VacationRequestFoundryForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = VacationRequestFoundry
+
+class VacationRequestMaintForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = VacationRequestMaint
+
+class VacationRequestShipForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = VacationRequestShip
+
+class PrototypeSamplesForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = PrototypeSamples
+
+class RoutingChangeRequestForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = RoutingChangeRequest
+
+class ScrappedToolingForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = ScrappedTooling
+
+class SandSieveAnalysisForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = SandSieveAnalysis
+
+class AlbiaShiftReportForm(ModelForm):
+    class Meta:
+        model = AlbiaShiftReport
+
+class LoToForm(ModelForm):
+    formfield_callback = make_custom_datetimefield
+    class Meta:
+        model = LoTo
+
+class TempEmployeeMBUForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = TempEmployeeMBU
+
+class TempEmployeeFactoryForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = TempEmployeeFactory
+
+class TempEmployeeFoundryForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = TempEmployeeFoundry
+
+class TempEmployeeMaintForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = TempEmployeeMaint
+
+class TempEmployeeShipForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = TempEmployeeShip
+
+class AHEIRReportForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = AHEIRReport
+
+class InstructionSheetUpdateForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = InstructionSheetUpdate
+
+class OvertimeRequestForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = OvertimeRequest
+
+class PackingStandardForm(ModelForm):
+    class Meta:
+        model = PackingStandard
+
+class ProductionOrderChangeForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = ProductionOrderChange
+
+class ProjectRequestForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = ProjectRequest
+
+class FabRequestForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = FabRequest
+
+class ToolboxMinutesForm(ModelForm):
+    class Meta:
+        model = ToolboxMinutes
+
+class ShiftReportForm(ModelForm):
+    class Meta:
+        model = ShiftReport
+
+class TestForm(ModelForm):
+    class Meta:
+        model = Test 
+
+class AlbiaSetupExceptionForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = AlbiaSetupException 
+
+class AlbiaMaintRequestForm(ModelForm):
+    class Meta:
+        model = AlbiaMaintRequest
+
+class AlbiaMachineDownLogForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = AlbiaMachineDownLog
+
+class AlbiaRejectedPartsForm(ModelForm):
+    class Meta:
+        model = AlbiaRejectedParts  
+
+class AlbiaRejectsToStkForm(ModelForm):
+    class Meta:
+        model = AlbiaRejectsToStk
+
+class AlbiaGatePassForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = AlbiaGatePass
+
+class AlbiaScrapNoticeForm(ModelForm):
+    class Meta:
+        model = AlbiaScrapNotice
+
+class TennMachineDownLogForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = TennMachineDownLog
+
+class ResourceGrpSetupForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = ResourceGrpSetup
+
+class BlastSandSieveForm(ModelForm):
+    class Meta:
+        model = BlastSandSieve
+
+class ProductionProblemReportForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = ProductionProblemReport
+
+class FDYToolRoomRequestForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = FDYToolRoomRequest
+
+class AlbiaProductionProblemReportForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = AlbiaProductionProblemReport
+
+class TennProductionProblemReportForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = TennProductionProblemReport
+
+class RCLeakerForm(ModelForm):
+    formfield_callback = make_custom_datefield
+    class Meta:
+        model = RCLeaker
+
+class VendorVisitForm(ModelForm):
+    class Meta:
+        model = VendorVisit
+
+class FiveSUpdateForm(ModelForm):
+    class Meta:
+        model = FiveSUpdate
+
+
+
+
+

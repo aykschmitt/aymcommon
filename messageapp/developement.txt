@@ -1,0 +1,109 @@
+class FiveSUpdate(models.Model):
+    BOOL_CHOICES = (
+        ('In Progress', 'In Progress'),
+        ('Complete', 'Complete'),
+    )
+    BOOL_CHOICESTWO = (
+        ('Red Tag', 'Red Tag'),
+        ('Shine', 'Shine'),
+        ('Sort/Set In Order', 'Sort/Set In Order'),
+        ('Audit', 'Audit'),
+    )
+    send_to = models.TextField(max_length=1000, verbose_name = "Send To", default='tpiggott,stefft')
+    date = models.DateTimeField(blank=True, verbose_name = "Date/Time Requested", default=datetime.datetime.now)
+    cell = models.CharField(max_length=50, blank=True, verbose_name = "Cell/Area")
+    progress = models.CharField(max_length=15, blank=True, choices=BOOL_CHOICES)
+    activity = models.CharField(max_length=15, blank=True, choices=BOOL_CHOICESTWO)
+    activity2 = models.CharField(max_length=15, blank=True, choices=BOOL_CHOICESTWO)
+    activity3 = models.CharField(max_length=15, blank=True, choices=BOOL_CHOICESTWO)
+    activity4 = models.CharField(max_length=15, blank=True, choices=BOOL_CHOICESTWO)
+    activity5 = models.CharField(max_length=15, blank=True, choices=BOOL_CHOICESTWO)
+    activity6 = models.CharField(max_length=15, blank=True, choices=BOOL_CHOICESTWO)
+    completed = models.TextField(max_length=500, blank=True)
+    employee = models.CharField(max_length=50, blank=True)
+    celltwo = models.CharField(max_length=30, blank=True)
+    approxhours = models.CharField(max_length=30, blank=True)
+    employee2 = models.CharField(max_length=50, blank=True)
+    celltwo2 = models.CharField(max_length=30, blank=True)
+    approxhours2 = models.CharField(max_length=30, blank=True)
+    employee3 = models.CharField(max_length=50, blank=True)
+    celltwo3 = models.CharField(max_length=30, blank=True)
+    approxhours3 = models.CharField(max_length=30, blank=True)
+    employee4 = models.CharField(max_length=50, blank=True)
+    celltwo4 = models.CharField(max_length=30, blank=True)
+    approxhours4 = models.CharField(max_length=30, blank=True)
+    employee5 = models.CharField(max_length=50, blank=True)
+    celltwo5 = models.CharField(max_length=30, blank=True)
+    approxhours5 = models.CharField(max_length=30, blank=True)
+
+
+def fivesupdate(request):
+    if request.method == 'POST':
+        form = FiveSUpdateForm(request.POST)
+        if form.is_valid():
+            subject = '5S Update' 
+            message = '\n Date:    %s \n\n Cell:    %s \n\n Progress:    %s \n\n Activity:    %s \n\n Completed:    %s \n\n Employee:    %s \n\n Cell:    %s \n\n Activity:    %s \n\n Approx Hours:    %s \n\n Employee:    %s \n\n Cell:    %s \n\n Activity:    %s \n\n Approx Hours:    %s \n\n Employee:    %s \n\n Cell:    %s \n\n Activity:    %s \n\n Approx Hours:    %s \n\n Employee:    %s \n\n Cell:    %s \n\n Activity:    %s \n\n Approx Hours:    %s \n\n Employee:    %s \n\n Cell:    %s \n\n Activity:    %s \n\n Approx Hours:    %s' % (form.cleaned_data['date'],  form.cleaned_data['cell'], form.cleaned_data['progress'], form.cleaned_data['activity'], form.cleaned_data['completed'], form.cleaned_data['employee'], form.cleaned_data['celltwo'], form.cleaned_data['activity2'], form.cleaned_data['apporxhours'], form.cleaned_data['employee2'], form.cleaned_data['celltwo2'], form.cleaned_data['activity3'], form.cleaned_data['approxhours2'],  form.cleaned_data['employee3'], form.cleaned_data['celltwo3'], form.cleaned_data['activity4'], form.cleaned_data['approxhours3'], form.cleaned_data['employee4'], form.cleaned_data['celltwo4'], form.cleaned_data['activity5'], form.cleaned_data['approxhours4'], form.cleaned_data['employee5'], form.cleaned_data['celltwo5'], form.cleaned_data['activity6'], form.cleaned_data['approxhours5']) 
+            from_addr = (request.user.email)
+            recipient_list = ['kschmitt@aymcdonald.com',(request.user.email)]
+            send_mail(subject, message, from_addr, recipient_list)
+            form.save()
+            return redirect(fivesupdate)
+    form = FiveSUpdateForm()
+    context = Context({'title': '5S UPdate', 'form': form})
+    return render_to_response('fivesupdate.html', context, context_instance=RequestContext(request))
+
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+class RoughCastReject(models.Model):
+    send_to = models.TextField(max_length=1000, verbose_name = "Send To", default='parnold,jremakel,dwatson,jgaber,dratterman,msullivan,gbrown,jschoop,hlangkamp,jmiller,mbasten,jmalek,jcabana,jheuer,banderson,bgebhard,cchrest,ssabers,tcao,mkirby,bmorgan,rmccullough,lotting,rwagner,jscherbring,jkirk,stefft,dthen,ashea,rrokusek,jburdt,dboleyn,bhaas,jherrig,pludowitz,bolberding,droush,dcosley,erauen,ggilson,jimbus,klenz,marling,rdavid,jkendell,efaust,gryan,pmartell,bludwig,tbanwarth,jrissman,astelken,amehlhorn,tlucey,cheim,ewolter,kcarroll')#bbecker
+    part_num = models.CharField(max_length=30, blank=True, verbose_name = "Part #")
+    job_num = models.CharField(max_length=20, blank=True, verbose_name = "Job #")
+    resource_num = models.CharField(max_length=20, blank=True, verbose_name = "Resource #")
+    cast_num = models.CharField(max_length=20, blank=True, verbose_name = "Casting #")
+    pri_code = models.CharField(max_length=30, blank=True, verbose_name = "Priority Code")
+    due_date = models.DateField(blank=True, null=True, verbose_name = "Due Date")
+    job_qty = models.CharField(max_length=30, blank=True, verbose_name = "Job Qty")
+    qty_ran = models.CharField(max_length=30, blank=True, verbose_name = "Qty Ran")
+    good_qty = models.CharField(max_length=30, blank=True, verbose_name = "Qty Good")
+    super = models.CharField(max_length=30, blank=True, verbose_name = "Supervisor")
+    quality = models.CharField(max_length=30, blank=True, verbose_name = "Quality Personnel")
+    ie = models.CharField(max_length=30, blank=True, verbose_name = "IE Personnel")
+    description = models.TextField(max_length=75, blank=True, verbose_name = "Description of Problem")
+    reported = models.CharField(max_length=30, blank=True, verbose_name = "Reported By")
+    corrective = models.CharField(max_length=40, blank=True, verbose_name = "Corrective Action By")
+    part_num2 = models.CharField(max_length=30, blank=True, verbose_name = "Part #")
+    job_num2 = models.CharField(max_length=20, blank=True, verbose_name = "Job #")
+    resource_num2 = models.CharField(max_length=20, blank=True, verbose_name = "Resource #")
+    cast_num2 = models.CharField(max_length=20, blank=True, verbose_name = "Casting #")
+    pri_code2 = models.CharField(max_length=30, blank=True, verbose_name = "Priority Code")
+    due_date2 = models.DateField(blank=True, null=True, verbose_name = "Due Date")
+    job_qty2 = models.CharField(max_length=30, blank=True, verbose_name = "Job Qty")
+    qty_ran2 = models.CharField(max_length=30, blank=True, verbose_name = "Qty Ran")
+    good_qty2 = models.CharField(max_length=30, blank=True, verbose_name = "Qty Good")
+    super2 = models.CharField(max_length=30, blank=True, verbose_name = "Supervisor")
+    quality2 = models.CharField(max_length=30, blank=True, verbose_name = "Quality Personnel")
+    ie2 = models.CharField(max_length=30, blank=True, verbose_name = "IE Personnel")
+    description2 = models.TextField(max_length=75, blank=True, verbose_name = "Description of Problem")
+    reported2 = models.CharField(max_length=30, blank=True, verbose_name = "Reported By")
+    corrective2 = models.CharField(max_length=40, blank=True, verbose_name = "Corrective Action By")
+
+    def  __str__(self):
+        return self.part_num
+
+def roughcastreject(request):
+    if request.method == 'POST':
+        form = RoughCastRejectForm(request.POST)
+        if form.is_valid():
+            subject = 'Rough Cast Reject' 
+            message = '\n Part #:    %s \n\n Job #:    %s \n\n Resource #:    %s \n\n Casting #:    %s \n\n Priority Code:    %s \n\n Due Date:    %s \n\n Job Qty:    %s \n\n Qty Ran:    %s \n\n Qty Good:    %s \n\n Supervisor:    %s \n\n Quality Personnel:    %s \n\n I.E. Personnel    %s \n\n Description of Problem:    %s \n\n Reported By:    %s \n\n Corrective Action By:    %s \n\n -------------------------------------------- \n\n Part #:    %s \n\n Job #:    %s \n\n Resource #:    %s \n\n Casting #:    %s \n\n Priority Code:    %s \n\n Due Date:    %s \n\n Job Qty:    %s \n\n Qty Ran:    %s \n\n Qty Good:    %s \n\n Supervisor:    %s \n\n Quality Personnel:    %s \n\n I.E. Personnel    %s \n\n Description of Problem:    %s \n\n Reported By:    %s \n\n Corrective Action By:    %s' % (form.cleaned_data['part_num'],  form.cleaned_data['job_num'], form.cleaned_data['resource_num'], form.cleaned_data['cast_num'], form.cleaned_data['pri_code'], form.cleaned_data['due_date'], form.cleaned_data['job_qty'], form.cleaned_data['qty_ran'], form.cleaned_data['good_qty'], form.cleaned_data['super'], form.cleaned_data['quality'], form.cleaned_data['ie'], form.cleaned_data['description'], form.cleaned_data['reported'], form.cleaned_data['corrective'], form.cleaned_data['part_num2'],  form.cleaned_data['job_num2'], form.cleaned_data['resource_num2'], form.cleaned_data['cast_num2'], form.cleaned_data['pri_code2'], form.cleaned_data['due_date2'], form.cleaned_data['job_qty2'], form.cleaned_data['qty_ran2'], form.cleaned_data['good_qty2'], form.cleaned_data['super2'], form.cleaned_data['quality2'], form.cleaned_data['ie2'], form.cleaned_data['description2'], form.cleaned_data['reported2'], form.cleaned_data['corrective2']) 
+            from_addr = (request.user.email)
+            recipient_list = ['kschmitt@aymcdonald.com',(request.user.email)]
+            send_mail(subject, message, from_addr, recipient_list)
+            form.save()
+            return redirect(roughcastreject)
+    form = RoughCastRejectForm()
+    context = Context({'title': 'Rough Cast Reject', 'form': form})
+    return render_to_response('roughcastreject.html', context, context_instance=RequestContext(request))
+
+
+

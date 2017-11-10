@@ -1,0 +1,50 @@
+from django.contrib import admin
+from AYMCommonMessage.messageapp.models import *
+from django.http import HttpResponse
+
+class MembersInline(admin.StackedInline):
+    model = Members
+    extra = 3
+
+class NewUserAdmin(admin.ModelAdmin):
+    list_display = ('first_name', 'last_name', 'start_date', 'job_title')
+    ordering = ('-start_date',)
+    list_per_page = 25
+    search_fields = ['first_name']
+admin.site.register(NewUser, NewUserAdmin)
+
+class EarlyClockOutAdmin(admin.ModelAdmin):
+    list_display = ('name', 'datetime', 'reason',)
+    list_per_page = 25
+    search_fields = ['name']
+admin.site.register(EarlyClockOut, EarlyClockOutAdmin)
+
+class EarlyClockOutFactoryAdmin(admin.ModelAdmin):
+    list_display = ('name', 'datetime', 'reason',)
+    list_per_page = 25
+    search_fields = ['name']
+admin.site.register(EarlyClockOutFactory, EarlyClockOutFactoryAdmin)
+
+class IssueMiscMaterialAdmin(admin.ModelAdmin):
+    list_display = ('part', 'quantity', 'reference', 'reason',)
+    list_per_page = 25
+admin.site.register(IssueMiscMaterial, IssueMiscMaterialAdmin)
+
+class CallInAdmin(admin.ModelAdmin):
+    list_display = ('name', 'employee_num', 'datetime', 'date_call', 'department', 'reason', 'fmla',)
+    list_filter = ('name',)
+    list_per_page = 25
+    search_fields = ['name', 'employee_num']
+admin.site.register(CallIn, CallInAdmin)
+
+class CastingProblemAdmin(admin.ModelAdmin):
+    list_display = ('part_num', 'cast_part_num', 'description',)
+    list_per_page = 25
+    search_fields = ['part_num', 'description']
+admin.site.register(CastingProblem, CastingProblemAdmin)
+
+class WeekInjIllFoundryAdmin(admin.ModelAdmin):
+    list_display = ('employee_num', 'name', 'department', 'shift', 'description', 'datetime', 'medical_provider', 'work_restrictions', 'next_datetime',)
+    list_per_page = 25
+    search_fields = ['employee_num', 'name', 'datetime']
+admin.site.register(WeekInjIllFoundry, WeekInjIllFoundryAdmin)
